@@ -1,0 +1,6 @@
+export * from './development';
+
+export const STORAGE_KEY = '@eventsPlatform';
+
+export const BASE_URL =
+  process.env.REACT_APP_BASE_URL || 'http://localhost:3333';

@@ -1,17 +1,26 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable global-require */
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
+import { HelmetProvider } from 'react-helmet-async';
+
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { IS_DEVELOPMENT, IS_MSW_ENABLED } from './constants';
+import AppProviders from './contexts';
+
+if (IS_DEVELOPMENT && IS_MSW_ENABLED) {
+  const { worker } = require('./mocks');
+  worker.start();
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <StrictMode>
+    <HelmetProvider>
+      <AppProviders>
+        <App />
+      </AppProviders>
+    </HelmetProvider>
+  </StrictMode>,
+  document.getElementById('root'),
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

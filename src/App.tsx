@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Router } from 'react-router';
+import { Toaster } from 'react-hot-toast';
+import { useTheme } from 'styled-components';
 
-function App() {
+import { history } from '@services';
+import { generateToastOptions } from '@utils';
+
+import Routes from './routes';
+
+const App = () => {
+  const theme = useTheme();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={history}>
+      <Routes />
+      <Toaster
+        position="top-right"
+        toastOptions={generateToastOptions(theme)}
+      />
+    </Router>
   );
-}
+};
 
 export default App;
